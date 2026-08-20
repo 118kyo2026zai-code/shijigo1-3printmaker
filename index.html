@@ -395,7 +395,9 @@ button{
 
 /* =========================================================
    問題エリア
-   ※ 日本語なので右から左
+   日本語なので右から左
+
+   問題は必ず3問
 ========================================================= */
 
 .studentProblems{
@@ -406,7 +408,8 @@ button{
 
     display:grid;
 
-    grid-template-columns:repeat(3, minmax(0, 1fr));
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
 
     gap:6mm;
 
@@ -438,6 +441,7 @@ button{
     background:#fff;
 
     display:flex;
+
     flex-direction:column;
 
     direction:ltr;
@@ -502,7 +506,10 @@ button{
 /* =========================================================
    問題内部
    右 → 左
+
    本文 → 問い → 答え
+
+   ★ Gridで3列を固定
 ========================================================= */
 
 .problemContent{
@@ -511,23 +518,40 @@ button{
 
     min-height:0;
 
-    display:flex;
+    display:grid;
 
-    flex-direction:row-reverse;
+    /*
+       右側から
+
+       本文 48%
+       問い 30%
+       答え 22%
+
+       の3列を固定
+    */
+    grid-template-columns:
+        48% 30% 22%;
 
     padding:4mm 4mm 5mm 4mm;
+
+    direction:rtl;
 }
 
 
 /* =========================================================
    本文
+
+   ★ 本文と問いの間の線は
+     本文の左端に一本だけ置く
+
+   ★ 問い側には線を設定しない
 ========================================================= */
 
 .bodyArea{
 
-    width:48%;
+    grid-column:1;
 
-    border-left:1px dotted #b9a8cc;
+    width:100%;
 
     padding-left:4mm;
 
@@ -539,7 +563,34 @@ button{
 
     min-width:0;
 
-    flex-shrink:0;
+    position:relative;
+}
+
+
+/*
+   本文と問いの間の線
+
+   本文エリアの左端に固定する。
+
+   これによって、
+   問いの文章に線が入り込むことを防ぐ。
+*/
+
+.bodyArea::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:0;
+    bottom:0;
+
+    width:1px;
+
+    border-left:1px dotted #b9a8cc;
+
+    pointer-events:none;
 }
 
 
@@ -617,13 +668,15 @@ button{
 
 /* =========================================================
    問い
+
+   ★ 線は一切設定しない
 ========================================================= */
 
 .questionArea{
 
-    width:30%;
+    grid-column:2;
 
-    border-left:1px dotted #b9a8cc;
+    width:100%;
 
     padding-left:4mm;
 
@@ -634,13 +687,28 @@ button{
     align-items:center;
 
     min-width:0;
-
-    flex-shrink:0;
 }
 
 
 /* =========================================================
-   問い縦書き
+   問い
+
+   ★ 横書きのまま
+   ★ 少し右へ移動
+========================================================= */
+
+.questionArea .sectionHeading{
+
+    transform:translateX(3mm);
+
+    writing-mode:horizontal-tb;
+
+    white-space:nowrap;
+}
+
+
+/* =========================================================
+   問い本文
 ========================================================= */
 
 .questionText{
@@ -685,11 +753,15 @@ button{
 
 /* =========================================================
    答え
+
+   ★ 「答え」という文字は表示しない
 ========================================================= */
 
 .answerArea{
 
-    width:22%;
+    grid-column:3;
+
+    width:100%;
 
     display:flex;
 
@@ -700,17 +772,6 @@ button{
     padding-left:3mm;
 
     flex:none;
-}
-
-.answerHeading{
-
-    color:var(--brand);
-
-    font-size:11px;
-
-    font-weight:bold;
-
-    margin-bottom:3mm;
 }
 
 
@@ -1590,19 +1651,10 @@ function createStudentProblem(number,data){
         "answerArea";
 
 
-    const answerHeading =
-        document.createElement("div");
-
-    answerHeading.className =
-        "answerHeading";
-
-    answerHeading.textContent =
-        "答え";
-
-
-    answerArea.appendChild(
-        answerHeading
-    );
+    /*
+       「答え」という文字は作らない。
+       原稿用紙だけを表示する。
+    */
 
     answerArea.appendChild(
         createAnswerGrid()
@@ -1619,13 +1671,20 @@ function createStudentProblem(number,data){
 
 
     /*
-       row-reverse により、
+       Gridでは
 
-       右 → 左
+       1列目 = 本文
+       2列目 = 問い
+       3列目 = 答え
+
+       としている。
+
+       親の direction:rtl により、
+       見た目は右から
 
        本文 → 問い → 答え
 
-       の順番になる。
+       になる。
     */
 
     content.appendChild(
@@ -1842,6 +1901,11 @@ function makePrint(){
 
 
     /* ---------- 問題数 ---------- */
+
+    /*
+       このプリントは常に3問。
+       レベルが変わっても問題数は変わらない。
+    */
 
     const problemCount = 3;
 
