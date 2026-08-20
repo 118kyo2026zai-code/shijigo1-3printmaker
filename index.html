@@ -621,13 +621,7 @@ button{
 
 .questionArea{
 
-    /*
-       ここを少し小さくして、
-       問いと答えの境界線を少し右へ移動
-    */
-    width:28%;
-
-    border-left:1px dotted #b9a8cc;
+    width:30%;
 
     padding-left:4mm;
 
@@ -644,7 +638,58 @@ button{
 
 
 /* =========================================================
-   問い縦書き
+   問いと答えの間の線
+   ★ 線だけを独立して動かす
+========================================================= */
+
+.questionArea{
+    position:relative;
+}
+
+.questionArea::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    bottom:0;
+
+    border-left:1px dotted #b9a8cc;
+
+    /*
+       ★ この数字を変えると
+       問いと答えの間の線だけが動きます。
+
+       今回は少し右へ。
+    */
+    transform:translateX(2mm);
+}
+
+
+/* =========================================================
+   問い見出し
+========================================================= */
+
+.questionArea .sectionHeading{
+
+    /*
+       「問い」は横書きのまま
+    */
+
+    writing-mode:horizontal-tb;
+
+    position:relative;
+
+    z-index:2;
+}
+
+
+/* =========================================================
+   問い本文
 ========================================================= */
 
 .questionText{
@@ -689,12 +734,12 @@ button{
 
 /* =========================================================
    答え
-   「答え」の文字は表示しない
+   「答え」という文字は表示しない
 ========================================================= */
 
 .answerArea{
 
-    width:24%;
+    width:22%;
 
     display:flex;
 
@@ -705,11 +750,15 @@ button{
     padding-left:3mm;
 
     flex:none;
+
+    position:relative;
 }
 
 
 /* =========================================================
    原稿用紙
+   10字 × 2列
+   正方形を維持
 ========================================================= */
 
 .answerGrid{
@@ -721,6 +770,8 @@ button{
     flex-direction:row;
 
     border:1px solid #8d75a9;
+
+    flex:none;
 }
 
 .answerColumn{
@@ -728,6 +779,8 @@ button{
     display:flex;
 
     flex-direction:column;
+
+    flex:none;
 }
 
 .answerCell{
@@ -1011,26 +1064,6 @@ button{
 ・・・
 
 指導ポイント：
-・・・
-
-②
-正解例：
-・・・
-
-根拠箇所：
-・・・
-
-指導ポイント：
-・・・
-
-③
-正解例：
-・・・
-
-根拠箇所：
-・・・
-
-指導ポイント：
 ・・・"
         ></textarea>
 
@@ -1054,7 +1087,6 @@ button{
                 type="text"
                 value="指示語特訓プリント"
             >
-
 
             <label>
                 レベル
@@ -1092,14 +1124,12 @@ button{
                 プリントを作る
             </button>
 
-
             <button
                 class="sampleButton"
                 onclick="loadSample()"
             >
                 今回のサンプルを入れる
             </button>
-
 
             <button
                 class="printButton"
@@ -1130,10 +1160,6 @@ button{
 
         <div class="studentLayout">
 
-
-            <!-- =========================
-                 問題
-            ========================== -->
 
             <div
                 class="studentProblems"
@@ -1173,8 +1199,6 @@ button{
         </div>
 
 
-        <!-- 著作権・ロゴ -->
-
         <div class="copyright">
 
             <img
@@ -1208,12 +1232,10 @@ button{
 
         </div>
 
-
         <div
             class="teacherProblems"
             id="teacherProblems"
         ></div>
-
 
         <div class="teacherFooter">
             指示語特訓プリント解説　教師用
@@ -1583,9 +1605,9 @@ function createStudentProblem(number,data){
     answerArea.className =
         "answerArea";
 
+
     /*
        「答え」という文字は作らない。
-       「：」も作らない。
        原稿用紙だけを表示する。
     */
 
@@ -1829,7 +1851,7 @@ function makePrint(){
     /* ---------- 問題数 ---------- */
 
     /*
-       このプリントは常に3問固定。
+       このプリントは必ず3問。
     */
 
     const problemCount = 3;
