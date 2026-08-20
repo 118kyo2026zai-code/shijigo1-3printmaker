@@ -12,6 +12,10 @@
 
 <style>
 
+/* =========================================================
+   基本
+========================================================= */
+
 :root{
     --brand:#7B3FC6;
     --brand-dark:#5A258F;
@@ -19,11 +23,6 @@
     --line:#B99AD3;
     --accent:#F28C28;
 }
-
-
-/* =========================================================
-   基本
-========================================================= */
 
 @page{
     size:A4 landscape;
@@ -396,6 +395,7 @@ button{
 
 /* =========================================================
    問題エリア
+   ※ 日本語なので右から左
 ========================================================= */
 
 .studentProblems{
@@ -404,13 +404,15 @@ button{
 
     height:190mm;
 
-    display:flex;
+    display:grid;
 
-    flex-direction:row-reverse;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
 
     gap:6mm;
 
     min-width:0;
+
+    direction:rtl;
 }
 
 
@@ -420,10 +422,9 @@ button{
 
 .studentProblem{
 
-    flex:1 1 0;
-
     min-width:0;
 
+    width:100%;
     height:190mm;
 
     border:1px solid #cdbfe0;
@@ -437,8 +438,9 @@ button{
     background:#fff;
 
     display:flex;
-
     flex-direction:column;
+
+    direction:ltr;
 }
 
 
@@ -499,6 +501,8 @@ button{
 
 /* =========================================================
    問題内部
+   右 → 左
+   本文 → 問い → 答え
 ========================================================= */
 
 .problemContent{
@@ -534,6 +538,8 @@ button{
     align-items:center;
 
     min-width:0;
+
+    flex-shrink:0;
 }
 
 
@@ -619,31 +625,17 @@ button{
 
     border-left:1px dotted #b9a8cc;
 
-    /*
-      本文と問いの間の線から
-      問いの文章を少し離す
-    */
-    padding-left:6mm;
+    padding-left:4mm;
 
     display:flex;
 
     flex-direction:column;
 
-    align-items:flex-start;
+    align-items:center;
 
     min-width:0;
-}
 
-
-/* =========================================================
-   問い見出し
-   本文・問いの区切り線から少し右へ
-========================================================= */
-
-.questionArea .sectionHeading{
-
-    margin-left:4mm;
-
+    flex-shrink:0;
 }
 
 
@@ -692,8 +684,7 @@ button{
 
 
 /* =========================================================
-   答えエリア
-   「こたえ」「20字以内」は表示しない
+   答え
 ========================================================= */
 
 .answerArea{
@@ -709,6 +700,17 @@ button{
     padding-left:3mm;
 
     flex:none;
+}
+
+.answerHeading{
+
+    color:var(--brand);
+
+    font-size:11px;
+
+    font-weight:bold;
+
+    margin-bottom:3mm;
 }
 
 
@@ -1008,19 +1010,34 @@ button{
 ===教師用===
 
 ①
-正解例・・・
-根拠箇所・・・
-指導ポイント・・・
+正解例：
+・・・
+
+根拠箇所：
+・・・
+
+指導ポイント：
+・・・
 
 ②
-正解例・・・
-根拠箇所・・・
-指導ポイント・・・
+正解例：
+・・・
+
+根拠箇所：
+・・・
+
+指導ポイント：
+・・・
 
 ③
-正解例・・・
-根拠箇所・・・
-指導ポイント・・・"
+正解例：
+・・・
+
+根拠箇所：
+・・・
+
+指導ポイント：
+・・・"
         ></textarea>
 
     </div>
@@ -1113,7 +1130,7 @@ button{
 
     <!-- ===============================
          生徒用
-    ================================== -->
+    ================================= -->
 
     <div class="studentPage">
 
@@ -1178,7 +1195,7 @@ button{
 
     <!-- ===============================
          教師用
-    ================================== -->
+    ================================= -->
 
     <div class="teacherPage">
 
@@ -1239,22 +1256,22 @@ const sampleText = `===問題1===
 ===問題3===
 
 本文
-公園に落ちている空き缶を拾う。使っていない部屋の電気を消す。必要のない物を買わない。このような行動を一人一人が続けることが、よりよい環境をつくることにつながります。
+友達が困っているときには声をかける。自分が使った場所は、次の人が使いやすいように片づける。さらに、相手の立場を考えて言葉を選ぶ。このような行動を、一人一人が大切にしていく必要があります。
 
 問題
-「このような行動」は何を指していますか。三つの行動に共通する内容を考えて、「〜こと」の形で答えましょう。
+「このような行動」は何を指していますか。内容をまとめて、「〜こと」の形で答えましょう。
 
 ===教師用===
 
 ①
 正解例：
-環境を大切にしない行動をやめること。
+環境を大切にしない行動をすること。
 
 根拠箇所：
 「道にゴミを投げ捨てる」「誰もいない部屋の電気をつけっぱなしにする」
 
 指導ポイント：
-二つの具体的な行動をそのまま並べるのではなく、共通する内容を考えてまとめる。
+二つの具体的な行動をそのまま並べるのではなく、共通する内容を考えて「環境を大切にしない行動」と言い換える。
 
 ②
 正解例：
@@ -1264,17 +1281,17 @@ const sampleText = `===問題1===
 「病院の待ち合い室では、静かに過ごす」「電車の中では、お年よりに席をゆずる」
 
 指導ポイント：
-具体的な二つの行動から、共通する「周りの人への配慮」という意味を考える。
+二つの具体的な行動から、共通する「周りの人への配慮」という意味を考える。
 
 ③
 正解例：
-環境を大切にする行動をすること。
+周りの人のことを考えて行動すること。
 
 根拠箇所：
-「空き缶を拾う」「使っていない部屋の電気を消す」「必要のない物を買わない」
+「友達が困っているときには声をかける」「次の人が使いやすいように片づける」「相手の立場を考えて言葉を選ぶ」
 
 指導ポイント：
-三つの具体例を一つずつ答えるのではなく、それらに共通する上位の内容にまとめる。`;
+三つの具体的な行動に共通する「相手や周りの人を考える」という内容にまとめる。`;
 
 
 /* =========================================================
@@ -1326,15 +1343,10 @@ function getProblemSection(text,number){
 
     let nextMarker = "";
 
-    if(number === 1){
+    if(number < 3){
 
         nextMarker =
-            "===問題2===";
-
-    }else if(number === 2){
-
-        nextMarker =
-            "===問題3===";
+            "===問題" + (number + 1) + "===";
 
     }else{
 
@@ -1343,7 +1355,7 @@ function getProblemSection(text,number){
     }
 
     const end =
-        text.indexOf(nextMarker);
+        text.indexOf(nextMarker,contentStart);
 
     if(end === -1){
 
@@ -1419,8 +1431,8 @@ function createAnswerGrid(){
         "answerGrid";
 
     for(
-        let column=0;
-        column<2;
+        let column = 0;
+        column < 2;
         column++
     ){
 
@@ -1431,8 +1443,8 @@ function createAnswerGrid(){
             "answerColumn";
 
         for(
-            let row=0;
-            row<10;
+            let row = 0;
+            row < 10;
             row++
         ){
 
@@ -1578,11 +1590,19 @@ function createStudentProblem(number,data){
         "answerArea";
 
 
-    /*
-      「こたえ」という文字や
-      「20字以内」という文字は表示せず、
-      原稿用紙だけを表示する。
-    */
+    const answerHeading =
+        document.createElement("div");
+
+    answerHeading.className =
+        "answerHeading";
+
+    answerHeading.textContent =
+        "答え";
+
+
+    answerArea.appendChild(
+        answerHeading
+    );
 
     answerArea.appendChild(
         createAnswerGrid()
@@ -1597,6 +1617,16 @@ function createStudentProblem(number,data){
     content.className =
         "problemContent";
 
+
+    /*
+       row-reverse により、
+
+       右 → 左
+
+       本文 → 問い → 答え
+
+       の順番になる。
+    */
 
     content.appendChild(
         bodyArea
@@ -1748,7 +1778,8 @@ function getLevelName(level){
 
     };
 
-    return levelNames[level] || "レベル易";
+    return levelNames[level]
+        || "レベル易";
 }
 
 
@@ -1828,8 +1859,8 @@ function makePrint(){
 
 
     for(
-        let i=1;
-        i<=problemCount;
+        let i = 1;
+        i <= problemCount;
         i++
     ){
 
