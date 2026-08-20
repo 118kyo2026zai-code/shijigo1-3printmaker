@@ -500,7 +500,6 @@ button{
 
 /* =========================================================
    問題内部
-   本文 → 問い → 原稿用紙
 ========================================================= */
 
 .problemContent{
@@ -829,11 +828,16 @@ button{
 
 /* =========================================================
    教師用問題
+   ① 左上
+   ② 右上
+   ③ 左下
 ========================================================= */
 
 .teacherProblems{
 
-    height:163mm;
+    width:100%;
+
+    height:145mm;
 
     display:grid;
 
@@ -844,6 +848,11 @@ button{
     gap:8mm;
 }
 
+
+/* =========================================================
+   教師用問題カード
+========================================================= */
+
 .teacherProblem{
 
     border:1px solid #d5d5d5;
@@ -853,6 +862,8 @@ button{
     padding:6mm;
 
     overflow:hidden;
+
+    min-height:0;
 }
 
 .teacherProblemTitle{
@@ -886,14 +897,20 @@ button{
 
 /* =========================================================
    このプリントで身につけたい力
-   ★ 教師用の右下
-   ★ 問題カードとは別デザイン
+   ★ 右下に固定
 ========================================================= */
 
 .skillGuide{
 
-    grid-column:2;
-    grid-row:2;
+    position:absolute;
+
+    right:15mm;
+
+    bottom:10mm;
+
+    width:calc(50% - 4mm);
+
+    height:63mm;
 
     padding:5mm 6mm;
 
@@ -1309,7 +1326,7 @@ button{
 
         <!-- ===============================
              このプリントで身につけたい力
-        ================================ -->
+        ================================= -->
 
         <div
             class="skillGuide"
@@ -1642,8 +1659,6 @@ function createStudentProblem(number,data){
         "studentProblem";
 
 
-    /* ---------- ヘッダー ---------- */
-
     const header =
         document.createElement("div");
 
@@ -1665,8 +1680,6 @@ function createStudentProblem(number,data){
         numberBox
     );
 
-
-    /* ---------- 本文 ---------- */
 
     const bodyArea =
         document.createElement("div");
@@ -1704,8 +1717,6 @@ function createStudentProblem(number,data){
     );
 
 
-    /* ---------- 問い ---------- */
-
     const questionArea =
         document.createElement("div");
 
@@ -1742,8 +1753,6 @@ function createStudentProblem(number,data){
     );
 
 
-    /* ---------- 答え ---------- */
-
     const answerArea =
         document.createElement("div");
 
@@ -1756,8 +1765,6 @@ function createStudentProblem(number,data){
         createAnswerGrid()
     );
 
-
-    /* ---------- 3領域 ---------- */
 
     const content =
         document.createElement("div");
@@ -1972,8 +1979,6 @@ function makePrint(){
     }
 
 
-    /* ---------- 設定 ---------- */
-
     const title =
         document.getElementById(
             "titleInput"
@@ -2005,16 +2010,8 @@ function makePrint(){
         getLevelName(level);
 
 
-    /* ---------- 身につけたい力 ---------- */
-
     updateSkillGuide(level);
 
-
-    /* ---------- 問題数 ---------- */
-
-    /*
-       このプリントは必ず3問。
-    */
 
     const problemCount = 3;
 
