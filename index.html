@@ -100,6 +100,7 @@ body{
 textarea{
     width:100%;
     height:420px;
+
     padding:14px;
 
     border:1px solid #ccc;
@@ -184,6 +185,7 @@ button{
 ========================================================= */
 
 .studentPage{
+
     width:297mm;
     height:210mm;
 
@@ -206,8 +208,10 @@ button{
 ========================================================= */
 
 .studentLayout{
+
     width:100%;
     height:100%;
+
     position:relative;
 }
 
@@ -217,6 +221,7 @@ button{
 ========================================================= */
 
 .studentSidebar{
+
     position:absolute;
 
     top:0;
@@ -241,6 +246,7 @@ button{
 ========================================================= */
 
 .sideTitle{
+
     background:var(--brand) !important;
     color:#fff !important;
 
@@ -271,6 +277,7 @@ button{
 ========================================================= */
 
 .sideLevel{
+
     background:var(--brand) !important;
     color:#fff !important;
 
@@ -301,6 +308,7 @@ button{
 ========================================================= */
 
 .sideName{
+
     width:20mm;
 
     margin-top:7mm;
@@ -325,6 +333,7 @@ button{
 ========================================================= */
 
 .sideNameBlank{
+
     display:block;
 
     margin-top:3mm;
@@ -352,6 +361,7 @@ button{
 ========================================================= */
 
 .copyright{
+
     position:absolute;
 
     right:7mm;
@@ -370,6 +380,7 @@ button{
 }
 
 .copyright img{
+
     display:block;
 
     width:13mm;
@@ -388,6 +399,7 @@ button{
 ========================================================= */
 
 .studentProblems{
+
     width:calc(100% - 30mm);
 
     height:190mm;
@@ -409,6 +421,7 @@ button{
 ========================================================= */
 
 .studentProblem{
+
     min-width:0;
 
     width:100%;
@@ -436,6 +449,7 @@ button{
 ========================================================= */
 
 .problemHeader{
+
     height:17mm;
 
     flex:none;
@@ -454,6 +468,7 @@ button{
 ========================================================= */
 
 .problemNumber{
+
     width:10mm;
     height:10mm;
 
@@ -489,6 +504,7 @@ button{
 ========================================================= */
 
 .problemContent{
+
     flex:1;
 
     min-height:0;
@@ -506,6 +522,7 @@ button{
 ========================================================= */
 
 .bodyArea{
+
     width:48%;
 
     border-left:1px dotted #b9a8cc;
@@ -529,6 +546,7 @@ button{
 ========================================================= */
 
 .sectionHeading{
+
     flex:0 0 auto;
 
     display:inline-block;
@@ -556,6 +574,7 @@ button{
 ========================================================= */
 
 .verticalText{
+
     flex:1;
 
     min-height:0;
@@ -599,6 +618,7 @@ button{
 ========================================================= */
 
 .questionArea{
+
     width:30%;
 
     padding-left:4mm;
@@ -619,7 +639,7 @@ button{
 
 /* =========================================================
    問いと答えの間の線
-   ★ 今回はここだけ少し右へ
+   ★ 今回はさらに1mm右へ
 ========================================================= */
 
 .questionArea::after{
@@ -636,7 +656,7 @@ button{
 
     border-left:1px dotted #b9a8cc;
 
-    transform:translateX(3mm);
+    transform:translateX(4mm);
 }
 
 
@@ -659,6 +679,7 @@ button{
 ========================================================= */
 
 .questionText{
+
     flex:1;
 
     min-height:0;
@@ -698,11 +719,12 @@ button{
 
 
 /* =========================================================
-   答え
-   ★ 「答え」「こたえ」は一切表示しない
+   答えエリア
+   ★ 文字は一切表示しない
 ========================================================= */
 
 .answerArea{
+
     width:22%;
 
     display:flex;
@@ -716,6 +738,8 @@ button{
     flex:none;
 
     position:relative;
+
+    font-size:0;
 }
 
 
@@ -725,6 +749,7 @@ button{
 ========================================================= */
 
 .answerGrid{
+
     display:flex;
 
     gap:0;
@@ -734,9 +759,12 @@ button{
     border:1px solid #8d75a9;
 
     flex:none;
+
+    font-size:initial;
 }
 
 .answerColumn{
+
     display:flex;
 
     flex-direction:column;
@@ -745,6 +773,7 @@ button{
 }
 
 .answerCell{
+
     width:10mm;
     height:10mm;
 
@@ -764,13 +793,14 @@ button{
 
 
 /* =========================================================
-   念のため「こたえ」「答え」を表示する要素を隠す
+   「こたえ」「答え」などの文字を完全に非表示
 ========================================================= */
 
 .answerArea .answerHeading,
 .answerArea .kotae,
 .answerArea .answerLabel,
-.answerArea .answerTitle{
+.answerArea .answerTitle,
+.answerArea .answerText{
     display:none !important;
 }
 
@@ -780,6 +810,7 @@ button{
 ========================================================= */
 
 .teacherPage{
+
     width:297mm;
     height:210mm;
 
@@ -799,6 +830,7 @@ button{
 }
 
 .teacherHeader{
+
     height:20mm;
 
     border-bottom:2px solid var(--brand);
@@ -807,6 +839,7 @@ button{
 }
 
 .teacherTitle{
+
     color:var(--brand);
 
     font-size:23px;
@@ -815,6 +848,7 @@ button{
 }
 
 .teacherLevel{
+
     margin-top:2mm;
 
     color:#777;
@@ -828,6 +862,7 @@ button{
 ========================================================= */
 
 .teacherProblems{
+
     height:163mm;
 
     display:grid;
@@ -838,6 +873,7 @@ button{
 }
 
 .teacherProblem{
+
     border:1px solid #d5d5d5;
 
     border-top:4px solid var(--brand);
@@ -848,6 +884,7 @@ button{
 }
 
 .teacherProblemTitle{
+
     color:var(--brand);
 
     font-size:17px;
@@ -858,6 +895,7 @@ button{
 }
 
 .teacherProblemText{
+
     font-family:
         "UD デジタル 教科書体",
         "UD Digi Kyokasho",
@@ -879,6 +917,7 @@ button{
 ========================================================= */
 
 .teacherFooter{
+
     position:absolute;
 
     left:15mm;
@@ -903,6 +942,7 @@ button{
 
     html,
     body{
+
         width:297mm;
         height:210mm;
 
@@ -921,18 +961,23 @@ button{
     }
 
     .studentPage{
+
         page-break-after:always;
+
         page-break-inside:avoid;
     }
 
     .teacherPage{
+
         page-break-before:always;
+
         page-break-inside:avoid;
     }
 
     .sideTitle,
     .sideLevel,
     .problemNumber{
+
         background:var(--brand) !important;
         color:#fff !important;
 
@@ -941,6 +986,7 @@ button{
     }
 
     .copyright img{
+
         -webkit-print-color-adjust:exact;
         print-color-adjust:exact;
     }
@@ -975,9 +1021,12 @@ button{
         </h2>
 
         <div class="help">
+
             問題1・問題2・問題3・教師用を、
             <strong>まとめてそのまま貼り付けてください。</strong><br>
+
             1問ずつ入力する必要はありません。
+
         </div>
 
 
@@ -1097,12 +1146,14 @@ button{
                 プリントを作る
             </button>
 
+
             <button
                 class="sampleButton"
                 onclick="loadSample()"
             >
                 今回のサンプルを入れる
             </button>
+
 
             <button
                 class="printButton"
@@ -1582,12 +1633,24 @@ function createStudentProblem(number,data){
 
 
     /*
-       「答え」「こたえ」という文字は
-       一切作らない。
+       ★ここが今回の重要部分
+
+       答えエリアを完全に空にしてから、
+       原稿用紙だけを追加する。
+
+       「こたえ」や「答え」が
+       どこかに残っていても表示されない。
     */
 
+    answerArea.innerHTML = "";
+
+
+    const answerGrid =
+        createAnswerGrid();
+
+
     answerArea.appendChild(
-        createAnswerGrid()
+        answerGrid
     );
 
 
