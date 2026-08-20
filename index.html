@@ -395,6 +395,7 @@ button{
 
 /* =========================================================
    問題エリア
+   ※ 日本語なので右から左
 ========================================================= */
 
 .studentProblems{
@@ -410,6 +411,8 @@ button{
     gap:6mm;
 
     min-width:0;
+
+    direction:rtl;
 }
 
 
@@ -436,6 +439,8 @@ button{
 
     display:flex;
     flex-direction:column;
+
+    direction:ltr;
 }
 
 
@@ -496,6 +501,8 @@ button{
 
 /* =========================================================
    問題内部
+   右 → 左
+   本文 → 問い → 答え
 ========================================================= */
 
 .problemContent{
@@ -504,9 +511,9 @@ button{
 
     min-height:0;
 
-    display:grid;
+    display:flex;
 
-    grid-template-columns:48% 30% 22%;
+    flex-direction:row-reverse;
 
     padding:4mm 4mm 5mm 4mm;
 }
@@ -518,9 +525,7 @@ button{
 
 .bodyArea{
 
-    min-width:0;
-
-    width:100%;
+    width:48%;
 
     border-left:1px dotted #b9a8cc;
 
@@ -531,6 +536,10 @@ button{
     flex-direction:column;
 
     align-items:center;
+
+    min-width:0;
+
+    flex-shrink:0;
 }
 
 
@@ -612,9 +621,7 @@ button{
 
 .questionArea{
 
-    min-width:0;
-
-    width:100%;
+    width:30%;
 
     border-left:1px dotted #b9a8cc;
 
@@ -625,6 +632,10 @@ button{
     flex-direction:column;
 
     align-items:center;
+
+    min-width:0;
+
+    flex-shrink:0;
 }
 
 
@@ -678,9 +689,7 @@ button{
 
 .answerArea{
 
-    min-width:0;
-
-    width:100%;
+    width:22%;
 
     display:flex;
 
@@ -689,6 +698,8 @@ button{
     align-items:center;
 
     padding-left:3mm;
+
+    flex:none;
 }
 
 .answerHeading{
@@ -698,15 +709,6 @@ button{
     font-size:11px;
 
     font-weight:bold;
-
-    margin-bottom:1mm;
-}
-
-.answerLimit{
-
-    color:#777;
-
-    font-size:9px;
 
     margin-bottom:3mm;
 }
@@ -1598,22 +1600,8 @@ function createStudentProblem(number,data){
         "答え";
 
 
-    const answerLimit =
-        document.createElement("div");
-
-    answerLimit.className =
-        "answerLimit";
-
-    answerLimit.textContent =
-        "20字以内";
-
-
     answerArea.appendChild(
         answerHeading
-    );
-
-    answerArea.appendChild(
-        answerLimit
     );
 
     answerArea.appendChild(
@@ -1629,6 +1617,16 @@ function createStudentProblem(number,data){
     content.className =
         "problemContent";
 
+
+    /*
+       row-reverse により、
+
+       右 → 左
+
+       本文 → 問い → 答え
+
+       の順番になる。
+    */
 
     content.appendChild(
         bodyArea
@@ -1845,11 +1843,6 @@ function makePrint(){
 
     /* ---------- 問題数 ---------- */
 
-    /*
-       このメーカーはレベル1〜3専用。
-       すべて3問で固定。
-    */
-
     const problemCount = 3;
 
 
@@ -1879,7 +1872,6 @@ function makePrint(){
 
 
         if(!section){
-
             continue;
         }
 
