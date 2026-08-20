@@ -395,6 +395,7 @@ button{
 
 /* =========================================================
    問題エリア
+   日本語なので右から左
 ========================================================= */
 
 .studentProblems{
@@ -500,9 +501,6 @@ button{
 
 /* =========================================================
    問題内部
-
-   右 → 左
-
    本文 → 問い → 原稿用紙
 ========================================================= */
 
@@ -522,11 +520,14 @@ button{
 
 /* =========================================================
    本文
+   ★ 線はつけない
 ========================================================= */
 
 .bodyArea{
 
     width:48%;
+
+    border-left:none;
 
     padding-left:4mm;
 
@@ -543,7 +544,7 @@ button{
 
 
 /* =========================================================
-   本文ラベル
+   本文・問いラベル
 ========================================================= */
 
 .sectionHeading{
@@ -616,6 +617,7 @@ button{
 
 /* =========================================================
    問い
+   ★ 線はつけない
 ========================================================= */
 
 .questionArea{
@@ -633,24 +635,25 @@ button{
     min-width:0;
 
     flex-shrink:0;
+
+    position:relative;
 }
 
 
 /* =========================================================
    問い見出し
-
-   「問い」は横書きのまま
+   ★ 横書きのまま3mm右へ
 ========================================================= */
 
 .questionArea .sectionHeading{
 
     writing-mode:horizontal-tb;
 
-    flex:none;
-
     position:relative;
 
     z-index:2;
+
+    transform:translateX(3mm);
 }
 
 
@@ -699,9 +702,8 @@ button{
 
 
 /* =========================================================
-   原稿用紙エリア
-
-   文字は一切表示しない
+   答え
+   ★ 文字は一切表示しない
 ========================================================= */
 
 .answerArea{
@@ -714,8 +716,6 @@ button{
 
     align-items:center;
 
-    justify-content:flex-start;
-
     padding-left:3mm;
 
     flex:none;
@@ -724,27 +724,35 @@ button{
 }
 
 
+/*
+   念のため、答え欄の疑似要素から
+   文字が出ることも完全に禁止する
+*/
+
+.answerArea::before,
+.answerArea::after{
+
+    content:none !important;
+
+    display:none !important;
+}
+
+
 /* =========================================================
    原稿用紙
    10字 × 2列
-
-   1マス = 10mm × 10mm
-   必ず正方形
+   10mm × 10mmの正方形
 ========================================================= */
 
 .answerGrid{
 
     display:flex;
 
-    flex-direction:row;
-
     gap:0;
 
+    flex-direction:row;
+
     border:1px solid #8d75a9;
-
-    width:20mm;
-
-    height:100mm;
 
     flex:none;
 }
@@ -755,35 +763,27 @@ button{
 
     flex-direction:column;
 
-    width:10mm;
-
-    height:100mm;
-
     flex:none;
 }
 
 .answerCell{
 
     width:10mm;
-
     height:10mm;
 
-    min-width:10mm;
-
-    min-height:10mm;
-
     border-right:1px solid #8d75a9;
-
     border-bottom:1px solid #8d75a9;
 
     flex:none;
 }
 
 .answerColumn:last-child .answerCell{
+
     border-right:0;
 }
 
 .answerCell:last-child{
+
     border-bottom:0;
 }
 
@@ -1237,12 +1237,10 @@ button{
 
         </div>
 
-
         <div
             class="teacherProblems"
             id="teacherProblems"
         ></div>
-
 
         <div class="teacherFooter">
             指示語特訓プリント解説　教師用
@@ -1323,7 +1321,9 @@ const sampleText = `===問題1===
 
 function loadSample(){
 
-    document.getElementById("inputText").value = sampleText;
+    document.getElementById(
+        "inputText"
+    ).value = sampleText;
 
     makePrint();
 }
@@ -1440,8 +1440,7 @@ function parseProblem(section){
 
 
 /* =========================================================
-   原稿用紙
-   10字 × 2列
+   原稿用紙20字
 ========================================================= */
 
 function createAnswerGrid(){
@@ -1603,7 +1602,7 @@ function createStudentProblem(number,data){
     );
 
 
-    /* ---------- 原稿用紙 ---------- */
+    /* ---------- 答え ---------- */
 
     const answerArea =
         document.createElement("div");
@@ -1611,6 +1610,13 @@ function createStudentProblem(number,data){
     answerArea.className =
         "answerArea";
 
+    /*
+       ここでは文字を一切作らない。
+       「答え」「こたえ」なども入れない。
+       原稿用紙だけを表示する。
+    */
+
+    answerArea.textContent = "";
 
     answerArea.appendChild(
         createAnswerGrid()
@@ -1625,6 +1631,15 @@ function createStudentProblem(number,data){
     content.className =
         "problemContent";
 
+    /*
+       row-reverse により、
+
+       右 → 左
+
+       本文 → 問い → 原稿用紙
+
+       の順番になる。
+    */
 
     content.appendChild(
         bodyArea
@@ -1840,6 +1855,10 @@ function makePrint(){
 
 
     /* ---------- 問題数 ---------- */
+
+    /*
+       このプリントは必ず3問。
+    */
 
     const problemCount = 3;
 
