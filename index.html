@@ -750,7 +750,7 @@ button{
     flex-direction:row;
     border:1px solid #8d75a9;
     flex:none;
-    margin-top:5mm;
+    margin-top:10mm;
 }
 
 .answerColumn{
@@ -1107,6 +1107,9 @@ button{
                     レベルやや難
                 </option>
 
+               <option value="4">
+                   レベル難
+               </option>
             </select>
 
         </div>
@@ -1778,14 +1781,11 @@ function createTeacherProblem(
 function getLevelName(level){
 
     const levelNames = {
-
-        "1":"レベル易",
-
-        "2":"レベルやや易",
-
-        "3":"レベルやや難"
-
-    };
+    "1":"レベル易",
+    "2":"レベルやや易",
+    "3":"レベルやや難",
+    "4":"レベル難"
+};
 
     return levelNames[level]
         || "レベル易";
