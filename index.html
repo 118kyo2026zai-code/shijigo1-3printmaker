@@ -100,9 +100,12 @@ body{
 textarea{
     width:100%;
     height:420px;
+
     padding:14px;
+
     border:1px solid #ccc;
     border-radius:6px;
+
     resize:vertical;
 
     font-family:
@@ -198,6 +201,11 @@ button{
 
     overflow:hidden;
 }
+
+
+/* =========================================================
+   生徒用メインレイアウト
+========================================================= */
 
 .studentLayout{
 
@@ -319,6 +327,11 @@ button{
     flex:none;
 }
 
+
+/* =========================================================
+   名前記入欄
+========================================================= */
+
 .sideNameBlank{
 
     display:block;
@@ -382,6 +395,7 @@ button{
 
 /* =========================================================
    問題エリア
+   日本語なので右から左
 ========================================================= */
 
 .studentProblems{
@@ -424,7 +438,6 @@ button{
     background:#fff;
 
     display:flex;
-
     flex-direction:column;
 
     direction:ltr;
@@ -448,6 +461,11 @@ button{
 
     border-bottom:1px solid #d8cee2;
 }
+
+
+/* =========================================================
+   問題番号
+========================================================= */
 
 .problemNumber{
 
@@ -503,13 +521,11 @@ button{
 
 /* =========================================================
    本文
-   今回は46%
-   → 本文と問いの境界線を少し右へ
 ========================================================= */
 
 .bodyArea{
 
-    width:46%;
+    width:48%;
 
     border-left:1px dotted #b9a8cc;
 
@@ -552,8 +568,6 @@ button{
     margin-bottom:3mm;
 
     writing-mode:horizontal-tb;
-
-    white-space:nowrap;
 }
 
 
@@ -603,13 +617,15 @@ button{
 
 /* =========================================================
    問い
-   今回は32%
-   → 問いの文章が隠れにくいように確保
 ========================================================= */
 
 .questionArea{
 
-    width:32%;
+    /*
+       ここを少し小さくして、
+       問いと答えの境界線を少し右へ移動
+    */
+    width:28%;
 
     border-left:1px dotted #b9a8cc;
 
@@ -673,12 +689,12 @@ button{
 
 /* =========================================================
    答え
-   「答え」「こたえ」の文字は表示しない
+   「答え」の文字は表示しない
 ========================================================= */
 
 .answerArea{
 
-    width:22%;
+    width:24%;
 
     display:flex;
 
@@ -694,7 +710,6 @@ button{
 
 /* =========================================================
    原稿用紙
-   10mm × 10mmを維持
 ========================================================= */
 
 .answerGrid{
@@ -706,8 +721,6 @@ button{
     flex-direction:row;
 
     border:1px solid #8d75a9;
-
-    flex:none;
 }
 
 .answerColumn{
@@ -715,8 +728,6 @@ button{
     display:flex;
 
     flex-direction:column;
-
-    flex:none;
 }
 
 .answerCell{
@@ -1020,7 +1031,8 @@ button{
 ・・・
 
 指導ポイント：
-・・・"></textarea>
+・・・"
+        ></textarea>
 
     </div>
 
@@ -1571,9 +1583,11 @@ function createStudentProblem(number,data){
     answerArea.className =
         "answerArea";
 
-
-    /* 「答え」という文字は作らない */
-
+    /*
+       「答え」という文字は作らない。
+       「：」も作らない。
+       原稿用紙だけを表示する。
+    */
 
     answerArea.appendChild(
         createAnswerGrid()
@@ -1590,7 +1604,7 @@ function createStudentProblem(number,data){
 
 
     /*
-       row-reverse により
+       row-reverse により、
 
        右 → 左
 
@@ -1663,10 +1677,15 @@ function parseTeacher(text){
     }
 
     return teacher
-        .split(/(?=^\s*[①②③]\s*)/m)
+
+        .split(
+            /(?=^\s*[①②③]\s*)/m
+        )
+
         .map(
             x => x.trim()
         )
+
         .filter(
             x => x
         );
@@ -1807,7 +1826,11 @@ function makePrint(){
         getLevelName(level);
 
 
-    /* ---------- 問題数は必ず3問 ---------- */
+    /* ---------- 問題数 ---------- */
+
+    /*
+       このプリントは常に3問固定。
+    */
 
     const problemCount = 3;
 
@@ -1878,10 +1901,12 @@ function makePrint(){
 
 
     teacherData
+
         .slice(
             0,
             problemCount
         )
+
         .forEach(
             function(text,index){
 
