@@ -53,7 +53,6 @@ body{
 }
 
 
-
 /* =========================================================
    編集画面
 ========================================================= */
@@ -172,7 +171,6 @@ button{
 }
 
 
-
 /* =========================================================
    印刷領域
 ========================================================= */
@@ -180,7 +178,6 @@ button{
 .printArea{
     display:none;
 }
-
 
 
 /* =========================================================
@@ -206,7 +203,6 @@ button{
 }
 
 
-
 /* =========================================================
    生徒用メインレイアウト
 ========================================================= */
@@ -218,7 +214,6 @@ button{
 
     position:relative;
 }
-
 
 
 /* =========================================================
@@ -244,7 +239,6 @@ button{
 
     z-index:10;
 }
-
 
 
 /* =========================================================
@@ -278,7 +272,6 @@ button{
 }
 
 
-
 /* =========================================================
    レベル
 ========================================================= */
@@ -310,7 +303,6 @@ button{
 }
 
 
-
 /* =========================================================
    名前
 ========================================================= */
@@ -334,7 +326,6 @@ button{
 
     flex:none;
 }
-
 
 
 /* =========================================================
@@ -363,7 +354,6 @@ button{
 
     border:none !important;
 }
-
 
 
 /* =========================================================
@@ -403,7 +393,6 @@ button{
 }
 
 
-
 /* =========================================================
    問題エリア
 ========================================================= */
@@ -424,7 +413,6 @@ button{
 
     direction:rtl;
 }
-
 
 
 /* =========================================================
@@ -455,7 +443,6 @@ button{
 }
 
 
-
 /* =========================================================
    問題番号ヘッダー
 ========================================================= */
@@ -473,7 +460,6 @@ button{
 
     border-bottom:1px solid #d8cee2;
 }
-
 
 
 /* =========================================================
@@ -512,7 +498,6 @@ button{
 }
 
 
-
 /* =========================================================
    問題内部
 ========================================================= */
@@ -529,7 +514,6 @@ button{
 
     padding:4mm 4mm 5mm 4mm;
 }
-
 
 
 /* =========================================================
@@ -554,7 +538,6 @@ button{
 
     flex-shrink:0;
 }
-
 
 
 /* =========================================================
@@ -583,7 +566,6 @@ button{
 
     writing-mode:horizontal-tb;
 }
-
 
 
 /* =========================================================
@@ -630,7 +612,6 @@ button{
 }
 
 
-
 /* =========================================================
    問い
 ========================================================= */
@@ -655,7 +636,6 @@ button{
 }
 
 
-
 /* =========================================================
    問い見出し
 ========================================================= */
@@ -670,7 +650,6 @@ button{
 
     transform:translateX(3mm);
 }
-
 
 
 /* =========================================================
@@ -717,7 +696,6 @@ button{
 }
 
 
-
 /* =========================================================
    答え
 ========================================================= */
@@ -746,7 +724,6 @@ button{
 
     display:none !important;
 }
-
 
 
 /* =========================================================
@@ -795,7 +772,6 @@ button{
 .answerCell:last-child{
     border-bottom:0;
 }
-
 
 
 /* =========================================================
@@ -850,16 +826,14 @@ button{
 }
 
 
-
 /* =========================================================
    教師用問題
-   ★ ③と右下の「身につけたい力」が重ならないように
-   ★ 下段の問題カードを少しコンパクトにする
+   ★ ここを少し低くして、右下の説明欄のスペースを確保
 ========================================================= */
 
 .teacherProblems{
 
-    height:132mm;
+    height:115mm;
 
     display:grid;
 
@@ -867,7 +841,7 @@ button{
 
     grid-template-rows:1fr 1fr;
 
-    gap:7mm;
+    gap:8mm;
 }
 
 .teacherProblem{
@@ -876,7 +850,7 @@ button{
 
     border-top:4px solid var(--brand);
 
-    padding:5mm;
+    padding:6mm;
 
     overflow:hidden;
 }
@@ -889,7 +863,7 @@ button{
 
     font-weight:bold;
 
-    margin-bottom:4mm;
+    margin-bottom:5mm;
 }
 
 .teacherProblemText{
@@ -910,12 +884,12 @@ button{
 }
 
 
-
 /* =========================================================
    このプリントで身につけたい力
-   ★ 右下に独立配置
-   ★ ③とは別サイズ
-   ★ 右端へ寄せる
+   ★ 右下専用
+   ★ 問題③とは重ならない
+   ★ 少し右寄せ
+   ★ 縦長・大きめ
 ========================================================= */
 
 .skillGuide{
@@ -923,12 +897,14 @@ button{
     position:absolute;
 
     right:15mm;
-    bottom:8mm;
 
-    width:88mm;
-    height:48mm;
+    top:132mm;
 
-    padding:4mm 5mm;
+    width:118mm;
+
+    height:64mm;
+
+    padding:5mm 7mm;
 
     border:2px solid var(--brand);
 
@@ -945,13 +921,13 @@ button{
 
     color:var(--brand);
 
-    font-size:15px;
+    font-size:16px;
 
     font-weight:bold;
 
-    margin-bottom:2mm;
+    margin-bottom:3mm;
 
-    padding-bottom:1.5mm;
+    padding-bottom:2mm;
 
     border-bottom:1px solid #d8c8e7;
 }
@@ -960,18 +936,18 @@ button{
 
     color:#F28C28;
 
-    font-size:12px;
+    font-size:13px;
 
     font-weight:bold;
 
-    margin-bottom:1.5mm;
+    margin-bottom:2mm;
 }
 
 .skillGuideText{
 
-    font-size:10.5px;
+    font-size:11.5px;
 
-    line-height:1.55;
+    line-height:1.7;
 
     color:#444;
 }
@@ -980,7 +956,6 @@ button{
 
     color:#5A258F;
 }
-
 
 
 /* =========================================================
@@ -1003,7 +978,6 @@ button{
 
     font-size:7px;
 }
-
 
 
 /* =========================================================
@@ -1076,9 +1050,7 @@ button{
 </head>
 
 
-
 <body>
-
 
 
 <!-- =====================================================
@@ -1096,7 +1068,6 @@ button{
     </p>
 
 
-
     <div class="panel">
 
         <h2 class="panelTitle">
@@ -1111,7 +1082,6 @@ button{
             1問ずつ入力する必要はありません。
 
         </div>
-
 
 
         <textarea
@@ -1176,7 +1146,6 @@ button{
     </div>
 
 
-
     <div class="panel">
 
         <h2 class="panelTitle">
@@ -1224,7 +1193,6 @@ button{
     </div>
 
 
-
     <div class="panel">
 
         <div class="buttons">
@@ -1257,13 +1225,11 @@ button{
 </div>
 
 
-
 <!-- =====================================================
      印刷領域
 ========================================================= -->
 
 <div class="printArea">
-
 
 
     <!-- ===============================
@@ -1278,7 +1244,6 @@ button{
                 class="studentProblems"
                 id="studentProblems"
             ></div>
-
 
 
             <!-- =========================
@@ -1313,7 +1278,6 @@ button{
         </div>
 
 
-
         <div class="copyright">
 
             <img
@@ -1324,7 +1288,6 @@ button{
         </div>
 
     </div>
-
 
 
     <!-- ===============================
@@ -1349,12 +1312,10 @@ button{
         </div>
 
 
-
         <div
             class="teacherProblems"
             id="teacherProblems"
         ></div>
-
 
 
         <!-- ===============================
@@ -1385,7 +1346,6 @@ button{
         </div>
 
 
-
         <div class="teacherFooter">
             指示語特訓プリント解説　教師用
         </div>
@@ -1395,9 +1355,7 @@ button{
 </div>
 
 
-
 <script>
-
 
 
 /* =========================================================
@@ -1461,7 +1419,6 @@ const sampleText = `===問題1===
 三つの具体的な行動に共通する「相手や周りの人を考える」という内容にまとめる。`;
 
 
-
 /* =========================================================
    レベル別
    「このプリントで身につけたい力」
@@ -1503,11 +1460,10 @@ const skillGuideData = {
             "<strong>それらをまとめる抽象的な意味</strong>を考えます。" +
             "単に「これ・それ」が何を指すかを探すだけでは解けない、" +
             "<strong>具体 → 抽象</strong>の思考が必要な問題です。" +
-            "指示語の読み取りを通して、文章全体の意味をまとめる力を育てます."
+            "指示語の読み取りを通して、文章全体の意味をまとめる力を育てます。"
     }
 
 };
-
 
 
 /* =========================================================
@@ -1524,7 +1480,6 @@ function loadSample(){
 }
 
 
-
 /* =========================================================
    テキスト整形
 ========================================================= */
@@ -1537,7 +1492,6 @@ function cleanText(text){
         .replace(/\r/g,"\n")
         .trim();
 }
-
 
 
 /* =========================================================
@@ -1588,7 +1542,6 @@ function getProblemSection(text,number){
 }
 
 
-
 /* =========================================================
    本文と問題を分離
 ========================================================= */
@@ -1635,7 +1588,6 @@ function parseProblem(section){
         question:question
     };
 }
-
 
 
 /* =========================================================
@@ -1688,7 +1640,6 @@ function createAnswerGrid(){
 }
 
 
-
 /* =========================================================
    生徒用問題カード
 ========================================================= */
@@ -1702,13 +1653,13 @@ function createStudentProblem(number,data){
         "studentProblem";
 
 
+    /* ---------- ヘッダー ---------- */
 
     const header =
         document.createElement("div");
 
     header.className =
         "problemHeader";
-
 
 
     const numberBox =
@@ -1721,19 +1672,18 @@ function createStudentProblem(number,data){
         number;
 
 
-
     header.appendChild(
         numberBox
     );
 
 
+    /* ---------- 本文 ---------- */
 
     const bodyArea =
         document.createElement("div");
 
     bodyArea.className =
         "bodyArea";
-
 
 
     const bodyHeading =
@@ -1746,7 +1696,6 @@ function createStudentProblem(number,data){
         "本文";
 
 
-
     const bodyText =
         document.createElement("div");
 
@@ -1755,7 +1704,6 @@ function createStudentProblem(number,data){
 
     bodyText.textContent =
         data.body;
-
 
 
     bodyArea.appendChild(
@@ -1767,13 +1715,13 @@ function createStudentProblem(number,data){
     );
 
 
+    /* ---------- 問い ---------- */
 
     const questionArea =
         document.createElement("div");
 
     questionArea.className =
         "questionArea";
-
 
 
     const questionHeading =
@@ -1786,7 +1734,6 @@ function createStudentProblem(number,data){
         "問い";
 
 
-
     const questionText =
         document.createElement("div");
 
@@ -1795,7 +1742,6 @@ function createStudentProblem(number,data){
 
     questionText.textContent =
         data.question;
-
 
 
     questionArea.appendChild(
@@ -1807,6 +1753,7 @@ function createStudentProblem(number,data){
     );
 
 
+    /* ---------- 答え ---------- */
 
     const answerArea =
         document.createElement("div");
@@ -1821,13 +1768,13 @@ function createStudentProblem(number,data){
     );
 
 
+    /* ---------- 3領域 ---------- */
 
     const content =
         document.createElement("div");
 
     content.className =
         "problemContent";
-
 
 
     content.appendChild(
@@ -1843,7 +1790,6 @@ function createStudentProblem(number,data){
     );
 
 
-
     card.appendChild(
         header
     );
@@ -1853,10 +1799,8 @@ function createStudentProblem(number,data){
     );
 
 
-
     return card;
 }
-
 
 
 /* =========================================================
@@ -1881,7 +1825,6 @@ function getTeacherSection(text){
         )
         .trim();
 }
-
 
 
 /* =========================================================
@@ -1913,7 +1856,6 @@ function parseTeacher(text){
 }
 
 
-
 /* =========================================================
    教師用カード
 ========================================================= */
@@ -1930,7 +1872,6 @@ function createTeacherProblem(
         "teacherProblem";
 
 
-
     const title =
         document.createElement("div");
 
@@ -1941,13 +1882,11 @@ function createTeacherProblem(
         "問題" + number;
 
 
-
     const content =
         document.createElement("div");
 
     content.className =
         "teacherProblemText";
-
 
 
     content.textContent =
@@ -1959,7 +1898,6 @@ function createTeacherProblem(
             .trim();
 
 
-
     card.appendChild(
         title
     );
@@ -1969,10 +1907,8 @@ function createTeacherProblem(
     );
 
 
-
     return card;
 }
-
 
 
 /* =========================================================
@@ -1998,7 +1934,6 @@ function getLevelName(level){
 }
 
 
-
 /* =========================================================
    身につけたい力を表示
 ========================================================= */
@@ -2010,12 +1945,10 @@ function updateSkillGuide(level){
         || skillGuideData["1"];
 
 
-
     document.getElementById(
         "skillGuideLevel"
     ).textContent =
         data.level;
-
 
 
     document.getElementById(
@@ -2023,7 +1956,6 @@ function updateSkillGuide(level){
     ).innerHTML =
         data.text;
 }
-
 
 
 /* =========================================================
@@ -2041,7 +1973,6 @@ function makePrint(){
         cleanText(text);
 
 
-
     if(!text){
 
         alert(
@@ -2052,6 +1983,7 @@ function makePrint(){
     }
 
 
+    /* ---------- 設定 ---------- */
 
     const title =
         document.getElementById(
@@ -2060,12 +1992,10 @@ function makePrint(){
         || "指示語特訓プリント";
 
 
-
     const level =
         document.getElementById(
             "levelInput"
         ).value;
-
 
 
     document.querySelector(
@@ -2074,12 +2004,10 @@ function makePrint(){
         title;
 
 
-
     document.getElementById(
         "studentLevel"
     ).textContent =
         getLevelName(level);
-
 
 
     document.getElementById(
@@ -2088,13 +2016,14 @@ function makePrint(){
         getLevelName(level);
 
 
+    /* ---------- 身につけたい力 ---------- */
 
     updateSkillGuide(level);
 
 
+    /* ---------- 問題数 ---------- */
 
     const problemCount = 3;
-
 
 
     /* =====================================================
@@ -2107,7 +2036,6 @@ function makePrint(){
         );
 
     studentProblems.innerHTML = "";
-
 
 
     for(
@@ -2123,18 +2051,15 @@ function makePrint(){
             );
 
 
-
         if(!section){
             continue;
         }
-
 
 
         const data =
             parseProblem(
                 section
             );
-
 
 
         studentProblems.appendChild(
@@ -2146,7 +2071,6 @@ function makePrint(){
 
         );
     }
-
 
 
     /* =====================================================
@@ -2161,12 +2085,10 @@ function makePrint(){
     teacherProblems.innerHTML = "";
 
 
-
     const teacherData =
         parseTeacher(
             text
         );
-
 
 
     teacherData
@@ -2191,7 +2113,6 @@ function makePrint(){
             }
         );
 }
-
 
 
 /* =========================================================
