@@ -395,7 +395,6 @@ button{
 
 /* =========================================================
    問題エリア
-   日本語なので右から左
 ========================================================= */
 
 .studentProblems{
@@ -501,6 +500,10 @@ button{
 
 /* =========================================================
    問題内部
+
+   右 → 左
+
+   本文 → 問い → 原稿用紙
 ========================================================= */
 
 .problemContent{
@@ -524,8 +527,6 @@ button{
 .bodyArea{
 
     width:48%;
-
-    border-left:1px dotted #b9a8cc;
 
     padding-left:4mm;
 
@@ -632,41 +633,20 @@ button{
     min-width:0;
 
     flex-shrink:0;
-
-    position:relative;
-}
-
-
-/* =========================================================
-   問いと答えの間の線
-   ★ 今回はさらに1mm右へ
-========================================================= */
-
-.questionArea::after{
-
-    content:"";
-
-    position:absolute;
-
-    left:0;
-
-    top:0;
-
-    bottom:0;
-
-    border-left:1px dotted #b9a8cc;
-
-    transform:translateX(4mm);
 }
 
 
 /* =========================================================
    問い見出し
+
+   「問い」は横書きのまま
 ========================================================= */
 
 .questionArea .sectionHeading{
 
     writing-mode:horizontal-tb;
+
+    flex:none;
 
     position:relative;
 
@@ -719,8 +699,9 @@ button{
 
 
 /* =========================================================
-   答えエリア
-   ★ 文字は一切表示しない
+   原稿用紙エリア
+
+   文字は一切表示しない
 ========================================================= */
 
 .answerArea{
@@ -733,34 +714,39 @@ button{
 
     align-items:center;
 
+    justify-content:flex-start;
+
     padding-left:3mm;
 
     flex:none;
 
     position:relative;
-
-    font-size:0;
 }
 
 
 /* =========================================================
    原稿用紙
    10字 × 2列
+
+   1マス = 10mm × 10mm
+   必ず正方形
 ========================================================= */
 
 .answerGrid{
 
     display:flex;
 
-    gap:0;
-
     flex-direction:row;
+
+    gap:0;
 
     border:1px solid #8d75a9;
 
-    flex:none;
+    width:20mm;
 
-    font-size:initial;
+    height:100mm;
+
+    flex:none;
 }
 
 .answerColumn{
@@ -769,15 +755,25 @@ button{
 
     flex-direction:column;
 
+    width:10mm;
+
+    height:100mm;
+
     flex:none;
 }
 
 .answerCell{
 
     width:10mm;
+
     height:10mm;
 
+    min-width:10mm;
+
+    min-height:10mm;
+
     border-right:1px solid #8d75a9;
+
     border-bottom:1px solid #8d75a9;
 
     flex:none;
@@ -789,19 +785,6 @@ button{
 
 .answerCell:last-child{
     border-bottom:0;
-}
-
-
-/* =========================================================
-   「こたえ」「答え」などの文字を完全に非表示
-========================================================= */
-
-.answerArea .answerHeading,
-.answerArea .kotae,
-.answerArea .answerLabel,
-.answerArea .answerTitle,
-.answerArea .answerText{
-    display:none !important;
 }
 
 
@@ -1146,14 +1129,12 @@ button{
                 プリントを作る
             </button>
 
-
             <button
                 class="sampleButton"
                 onclick="loadSample()"
             >
                 今回のサンプルを入れる
             </button>
-
 
             <button
                 class="printButton"
@@ -1342,9 +1323,7 @@ const sampleText = `===問題1===
 
 function loadSample(){
 
-    document.getElementById(
-        "inputText"
-    ).value = sampleText;
+    document.getElementById("inputText").value = sampleText;
 
     makePrint();
 }
@@ -1461,7 +1440,8 @@ function parseProblem(section){
 
 
 /* =========================================================
-   原稿用紙20字
+   原稿用紙
+   10字 × 2列
 ========================================================= */
 
 function createAnswerGrid(){
@@ -1623,7 +1603,7 @@ function createStudentProblem(number,data){
     );
 
 
-    /* ---------- 答え ---------- */
+    /* ---------- 原稿用紙 ---------- */
 
     const answerArea =
         document.createElement("div");
@@ -1632,25 +1612,8 @@ function createStudentProblem(number,data){
         "answerArea";
 
 
-    /*
-       ★ここが今回の重要部分
-
-       答えエリアを完全に空にしてから、
-       原稿用紙だけを追加する。
-
-       「こたえ」や「答え」が
-       どこかに残っていても表示されない。
-    */
-
-    answerArea.innerHTML = "";
-
-
-    const answerGrid =
-        createAnswerGrid();
-
-
     answerArea.appendChild(
-        answerGrid
+        createAnswerGrid()
     );
 
 
@@ -1727,12 +1690,15 @@ function parseTeacher(text){
     }
 
     return teacher
+
         .split(
             /(?=^\s*[①②③]\s*)/m
         )
+
         .map(
             x => x.trim()
         )
+
         .filter(
             x => x
         );
@@ -1944,10 +1910,12 @@ function makePrint(){
 
 
     teacherData
+
         .slice(
             0,
             problemCount
         )
+
         .forEach(
             function(text,index){
 
