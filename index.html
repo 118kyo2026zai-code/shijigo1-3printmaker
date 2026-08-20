@@ -395,9 +395,7 @@ button{
 
 /* =========================================================
    問題エリア
-   日本語なので右から左
-
-   問題は必ず3問
+   ※ 3問固定
 ========================================================= */
 
 .studentProblems{
@@ -441,7 +439,6 @@ button{
     background:#fff;
 
     display:flex;
-
     flex-direction:column;
 
     direction:ltr;
@@ -505,11 +502,10 @@ button{
 
 /* =========================================================
    問題内部
+   CSS Gridで3領域を固定
    右 → 左
 
    本文 → 問い → 答え
-
-   ★ Gridで3列を固定
 ========================================================= */
 
 .problemContent{
@@ -521,37 +517,42 @@ button{
     display:grid;
 
     /*
-       右側から
+       direction:rtl により、
+       1列目が右側になる。
 
        本文 48%
        問い 30%
        答え 22%
-
-       の3列を固定
     */
-    grid-template-columns:
-        48% 30% 22%;
 
-    padding:4mm 4mm 5mm 4mm;
+    grid-template-columns:
+        48%
+        30%
+        22%;
 
     direction:rtl;
+
+    padding:4mm 4mm 5mm 4mm;
 }
 
 
 /* =========================================================
    本文
-
-   ★ 本文と問いの間の線は
-     本文の左端に一本だけ置く
-
-   ★ 問い側には線を設定しない
 ========================================================= */
 
 .bodyArea{
 
-    grid-column:1;
+    min-width:0;
 
     width:100%;
+
+    /*
+       本文と問いの境界線。
+       本文の左側に固定するので
+       問いと答えの間には線が出ない。
+    */
+
+    border-left:1px dotted #9f8bb5;
 
     padding-left:4mm;
 
@@ -561,36 +562,9 @@ button{
 
     align-items:center;
 
-    min-width:0;
+    overflow:hidden;
 
-    position:relative;
-}
-
-
-/*
-   本文と問いの間の線
-
-   本文エリアの左端に固定する。
-
-   これによって、
-   問いの文章に線が入り込むことを防ぐ。
-*/
-
-.bodyArea::before{
-
-    content:"";
-
-    position:absolute;
-
-    left:0;
-    top:0;
-    bottom:0;
-
-    width:1px;
-
-    border-left:1px dotted #b9a8cc;
-
-    pointer-events:none;
+    direction:ltr;
 }
 
 
@@ -619,6 +593,8 @@ button{
     margin-bottom:3mm;
 
     writing-mode:horizontal-tb;
+
+    white-space:nowrap;
 }
 
 
@@ -663,47 +639,59 @@ button{
     overflow:hidden;
 
     text-align:left;
+
+    direction:ltr;
 }
 
 
 /* =========================================================
    問い
-
-   ★ 線は一切設定しない
 ========================================================= */
 
 .questionArea{
 
-    grid-column:2;
+    min-width:0;
 
     width:100%;
 
+    /*
+       問いと答えの間には
+       borderを設定しない。
+    */
+
+    border:none;
+
     padding-left:4mm;
+
+    padding-right:2mm;
 
     display:flex;
 
     flex-direction:column;
 
-    align-items:center;
+    align-items:flex-start;
 
-    min-width:0;
+    overflow:hidden;
+
+    direction:ltr;
 }
 
 
 /* =========================================================
-   問い
-
-   ★ 横書きのまま
-   ★ 少し右へ移動
+   問いラベル
+   横書きのまま。
+   少し右に寄せる。
 ========================================================= */
 
 .questionArea .sectionHeading{
 
-    transform:translateX(3mm);
-
     writing-mode:horizontal-tb;
 
-    white-space:nowrap;
+    margin-left:3mm;
+
+    margin-bottom:3mm;
+
+    flex:none;
 }
 
 
@@ -748,18 +736,18 @@ button{
     overflow:hidden;
 
     text-align:left;
+
+    direction:ltr;
 }
 
 
 /* =========================================================
    答え
-
-   ★ 「答え」という文字は表示しない
 ========================================================= */
 
 .answerArea{
 
-    grid-column:3;
+    min-width:0;
 
     width:100%;
 
@@ -769,25 +757,44 @@ button{
 
     align-items:center;
 
-    padding-left:3mm;
+    justify-content:flex-start;
 
-    flex:none;
+    padding-left:2mm;
+
+    padding-right:1mm;
+
+    overflow:hidden;
+
+    direction:ltr;
 }
+
+
+/*
+   「答え」という文字は表示しない。
+*/
 
 
 /* =========================================================
    原稿用紙
+   10×2
+   必ず正方形
 ========================================================= */
 
 .answerGrid{
 
     display:flex;
 
-    gap:0;
-
     flex-direction:row;
 
+    gap:0;
+
     border:1px solid #8d75a9;
+
+    width:20mm;
+
+    height:100mm;
+
+    flex:none;
 }
 
 .answerColumn{
@@ -795,14 +802,28 @@ button{
     display:flex;
 
     flex-direction:column;
+
+    width:10mm;
+
+    height:100mm;
 }
 
 .answerCell{
 
     width:10mm;
+
     height:10mm;
 
+    min-width:10mm;
+
+    min-height:10mm;
+
+    max-width:10mm;
+
+    max-height:10mm;
+
     border-right:1px solid #8d75a9;
+
     border-bottom:1px solid #8d75a9;
 
     flex:none;
@@ -1013,7 +1034,7 @@ button{
 
 <!-- =====================================================
      編集画面
-========================================================= -->
+===================================================== -->
 
 <div class="editor">
 
@@ -1038,6 +1059,11 @@ button{
             <strong>まとめてそのまま貼り付けてください。</strong><br>
 
             1問ずつ入力する必要はありません。
+
+            <br><br>
+
+            <strong>※本文は100～110文字程度、長くても120文字以内にしてください。</strong><br>
+            縦書きにしたとき、本文が3列以内に収まる長さを想定しています。
 
         </div>
 
@@ -1480,7 +1506,8 @@ function parseProblem(section){
 
 
 /* =========================================================
-   原稿用紙20字
+   原稿用紙
+   10×2＝20マス
 ========================================================= */
 
 function createAnswerGrid(){
@@ -1652,7 +1679,7 @@ function createStudentProblem(number,data){
 
 
     /*
-       「答え」という文字は作らない。
+       「答え」という文字は入れない。
        原稿用紙だけを表示する。
     */
 
@@ -1671,16 +1698,9 @@ function createStudentProblem(number,data){
 
 
     /*
-       Gridでは
+       CSS Grid + direction:rtl により
 
-       1列目 = 本文
-       2列目 = 問い
-       3列目 = 答え
-
-       としている。
-
-       親の direction:rtl により、
-       見た目は右から
+       右 → 左
 
        本文 → 問い → 答え
 
@@ -1904,7 +1924,6 @@ function makePrint(){
 
     /*
        このプリントは常に3問。
-       レベルが変わっても問題数は変わらない。
     */
 
     const problemCount = 3;
