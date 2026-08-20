@@ -202,11 +202,6 @@ button{
     overflow:hidden;
 }
 
-
-/* =========================================================
-   生徒用メインレイアウト
-========================================================= */
-
 .studentLayout{
 
     width:100%;
@@ -327,11 +322,6 @@ button{
     flex:none;
 }
 
-
-/* =========================================================
-   名前記入欄
-========================================================= */
-
 .sideNameBlank{
 
     display:block;
@@ -395,10 +385,14 @@ button{
 
 /* =========================================================
    問題エリア
-   右から左へ
 ========================================================= */
 
 .studentProblems{
+
+    position:absolute;
+
+    left:0;
+    top:0;
 
     width:calc(100% - 30mm);
 
@@ -406,11 +400,10 @@ button{
 
     display:grid;
 
-    grid-template-columns:repeat(3, minmax(0, 1fr));
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
 
     gap:6mm;
-
-    min-width:0;
 
     direction:rtl;
 }
@@ -422,13 +415,12 @@ button{
 
 .studentProblem{
 
-    min-width:0;
-
     width:100%;
     height:190mm;
 
-    border:1px solid #cdbfe0;
+    min-width:0;
 
+    border:1px solid #cdbfe0;
     border-top:4px solid var(--brand);
 
     border-radius:4px;
@@ -445,7 +437,7 @@ button{
 
 
 /* =========================================================
-   問題番号ヘッダー
+   問題番号
 ========================================================= */
 
 .problemHeader{
@@ -461,11 +453,6 @@ button{
 
     border-bottom:1px solid #d8cee2;
 }
-
-
-/* =========================================================
-   問題番号
-========================================================= */
 
 .problemNumber{
 
@@ -494,15 +481,17 @@ button{
     font-weight:bold;
 
     line-height:1;
-
-    flex:none;
 }
 
 
 /* =========================================================
    問題内部
+
+   CSS Gridで位置を完全固定
+
    右 → 左
-   本文 → 問い → 答え
+
+   本文 | 問い | 答え
 ========================================================= */
 
 .problemContent{
@@ -511,26 +500,51 @@ button{
 
     min-height:0;
 
-    display:flex;
+    display:grid;
 
-    flex-direction:row-reverse;
+    /*
+       左から
 
-    padding:4mm 4mm 5mm 4mm;
+       答え 22%
+       問い 30%
+       本文 48%
+
+       に固定する。
+
+       そのため画面上では
+
+       本文 → 問い → 答え
+
+       になる。
+    */
+
+    grid-template-columns:
+        22%
+        30%
+        48%;
+
+    direction:ltr;
+
+    padding:
+        4mm
+        4mm
+        5mm
+        4mm;
 }
 
 
 /* =========================================================
    本文
-   ※ここを基準に境界線を描く
+   一番右
 ========================================================= */
 
 .bodyArea{
 
-    width:48%;
+    grid-column:3;
 
-    border-left:none;
+    width:100%;
 
-    padding-left:4mm;
+    min-width:0;
 
     display:flex;
 
@@ -538,40 +552,12 @@ button{
 
     align-items:center;
 
-    min-width:0;
-
-    flex-shrink:0;
-
-    position:relative;
-}
-
-
-/* =========================================================
-   本文と問いの間の線
-   ※幅を変えず、線だけ動かせる
-========================================================= */
-
-.bodyArea::after{
-
-    content:"";
-
-    position:absolute;
-
-    top:0;
-    bottom:0;
+    padding-left:4mm;
 
     /*
-       この数字を変えると
-       線だけが動きます。
-
-       大きくする → 左へ
-       小さくする → 右へ
+       本文と問いの境界線はここには置かない。
+       問い側の右端に置く。
     */
-    right:2mm;
-
-    border-right:1px dotted #b9a8cc;
-
-    pointer-events:none;
 }
 
 
@@ -579,9 +565,9 @@ button{
    本文ラベル
 ========================================================= */
 
-.sectionHeading{
+.bodyArea .sectionHeading{
 
-    flex:0 0 auto;
+    flex:none;
 
     display:inline-block;
 
@@ -651,19 +637,16 @@ button{
 
 /* =========================================================
    問い
+   真ん中
 ========================================================= */
 
 .questionArea{
 
-    width:30%;
+    grid-column:2;
 
-    /*
-       問いと答えの間には線を入れない
-    */
+    width:100%;
 
-    border-left:none;
-
-    padding-left:4mm;
+    min-width:0;
 
     display:flex;
 
@@ -671,23 +654,65 @@ button{
 
     align-items:center;
 
-    min-width:0;
+    padding:
+        0
+        4mm
+        0
+        4mm;
 
-    flex-shrink:0;
+    /*
+       ★ここが重要
+
+       問いの右端に線を置く。
+
+       これによって
+
+       本文 | 問い
+
+       の境界線になる。
+
+       答え側には線を置かない。
+    */
+
+    border-right:1px dotted #b9a8cc;
 }
 
 
 /* =========================================================
    問いラベル
-   「問い」は横書きのまま
-   少し右へ移動
+
+   「問い」は横書き
 ========================================================= */
 
 .questionArea .sectionHeading{
 
-    position:relative;
+    flex:none;
 
-    left:2mm;
+    display:inline-block;
+
+    color:var(--brand);
+
+    font-size:11px;
+
+    font-weight:bold;
+
+    border:1px solid #b9a8cc;
+
+    border-radius:12px;
+
+    padding:2px 9px;
+
+    margin-bottom:3mm;
+
+    writing-mode:horizontal-tb;
+
+    white-space:nowrap;
+
+    /*
+       問いの文字を少し右へ。
+    */
+
+    transform:translateX(3mm);
 }
 
 
@@ -737,11 +762,18 @@ button{
 
 /* =========================================================
    答え
+   一番左
+
+   「こたえ」「答え」の文字は置かない
 ========================================================= */
 
 .answerArea{
 
-    width:22%;
+    grid-column:1;
+
+    width:100%;
+
+    min-width:0;
 
     display:flex;
 
@@ -749,30 +781,25 @@ button{
 
     align-items:center;
 
+    justify-content:flex-start;
+
     padding-left:3mm;
-
-    flex:none;
 }
-
-
-/*
-   「答え」の文字は表示しない
-*/
 
 
 /* =========================================================
    原稿用紙
-   10mm × 10mm
-   2列 × 10行 = 20マス
+
+   必ず10mm × 10mmの正方形
 ========================================================= */
 
 .answerGrid{
 
     display:flex;
 
-    gap:0;
-
     flex-direction:row;
+
+    gap:0;
 
     border:1px solid #8d75a9;
 
@@ -792,6 +819,12 @@ button{
 
     width:10mm;
     height:10mm;
+
+    min-width:10mm;
+    min-height:10mm;
+
+    max-width:10mm;
+    max-height:10mm;
 
     border-right:1px solid #8d75a9;
     border-bottom:1px solid #8d75a9;
@@ -995,11 +1028,6 @@ button{
         -webkit-print-color-adjust:exact;
         print-color-adjust:exact;
     }
-
-    .bodyArea::after{
-
-        border-right:1px dotted #b9a8cc;
-    }
 }
 
 </style>
@@ -1011,7 +1039,7 @@ button{
 
 <!-- =====================================================
      編集画面
-===================================================== -->
+========================================================= -->
 
 <div class="editor">
 
@@ -1096,7 +1124,7 @@ button{
 ・・・
 
 指導ポイント：
- ..."
+・・・"
         ></textarea>
 
     </div>
@@ -1180,7 +1208,6 @@ button{
 </div>
 
 
-
 <!-- =====================================================
      印刷領域
 ========================================================= -->
@@ -1253,7 +1280,6 @@ button{
     </div>
 
 
-
     <!-- ===============================
          教師用
     ================================= -->
@@ -1289,7 +1315,6 @@ button{
     </div>
 
 </div>
-
 
 
 <script>
@@ -1492,6 +1517,7 @@ function createAnswerGrid(){
     grid.className =
         "answerGrid";
 
+
     for(
         let column = 0;
         column < 2;
@@ -1503,6 +1529,7 @@ function createAnswerGrid(){
 
         columnElement.className =
             "answerColumn";
+
 
         for(
             let row = 0;
@@ -1653,8 +1680,8 @@ function createStudentProblem(number,data){
 
 
     /*
-       「答え」という文字は表示しない。
-       原稿用紙だけを置く。
+       「答え」「こたえ」の文字は
+       ここでは一切作らない。
     */
 
     answerArea.appendChild(
@@ -1671,18 +1698,8 @@ function createStudentProblem(number,data){
         "problemContent";
 
 
-    /*
-       row-reverse により、
-
-       右 → 左
-
-       本文 → 問い → 答え
-
-       の順番になる。
-    */
-
     content.appendChild(
-        bodyArea
+        answerArea
     );
 
     content.appendChild(
@@ -1690,7 +1707,7 @@ function createStudentProblem(number,data){
     );
 
     content.appendChild(
-        answerArea
+        bodyArea
     );
 
 
@@ -1745,15 +1762,12 @@ function parseTeacher(text){
     }
 
     return teacher
-
         .split(
             /(?=^\s*[①②③]\s*)/m
         )
-
         .map(
             x => x.trim()
         )
-
         .filter(
             x => x
         );
@@ -1897,8 +1911,7 @@ function makePrint(){
     /* ---------- 問題数 ---------- */
 
     /*
-       ここは常に3問。
-       今後も4問にはしない。
+       このプリントは必ず3問。
     */
 
     const problemCount = 3;
