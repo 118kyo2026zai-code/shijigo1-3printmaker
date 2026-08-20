@@ -522,13 +522,13 @@ button{
 
 /* =========================================================
    本文
-   ★ 本文の右端ではなく、本文と問いの境界を
-      本文側に固定するため border-right を使用
+   ★ 今回ここだけ少し狭くして
+     境界線を左へ移動
 ========================================================= */
 
 .bodyArea{
 
-    width:48%;
+    width:45%;
 
     border-right:1px dotted #b9a8cc;
 
@@ -579,7 +579,6 @@ button{
 
 /* =========================================================
    本文縦書き
-   3列程度に収まる前提
 ========================================================= */
 
 .verticalText{
@@ -647,8 +646,8 @@ button{
 
 
 /* =========================================================
-   問いの文字
-   「問い」は必ず横書き
+   問い
+   「問い」は横書き
 ========================================================= */
 
 .questionArea .sectionHeading{
@@ -709,7 +708,6 @@ button{
 
 /* =========================================================
    答え
-   ※「答え」という文字は表示しない
 ========================================================= */
 
 .answerArea{
@@ -730,6 +728,8 @@ button{
 
 /* =========================================================
    原稿用紙
+   10字 × 2列
+   正方形固定
 ========================================================= */
 
 .answerGrid{
@@ -1152,9 +1152,7 @@ button{
         <div class="studentLayout">
 
 
-            <!-- =========================
-                 問題
-            ========================== -->
+            <!-- 問題 -->
 
             <div
                 class="studentProblems"
@@ -1162,9 +1160,7 @@ button{
             ></div>
 
 
-            <!-- =========================
-                 右側サイドバー
-            ========================== -->
+            <!-- 右側サイドバー -->
 
             <div class="studentSidebar">
 
@@ -1435,8 +1431,6 @@ function parseProblem(section){
 
 /* =========================================================
    原稿用紙
-   10字 × 2列
-   正方形固定
 ========================================================= */
 
 function createAnswerGrid(){
@@ -1446,6 +1440,7 @@ function createAnswerGrid(){
 
     grid.className =
         "answerGrid";
+
 
     for(
         let column = 0;
@@ -1458,6 +1453,7 @@ function createAnswerGrid(){
 
         columnElement.className =
             "answerColumn";
+
 
         for(
             let row = 0;
@@ -1476,10 +1472,12 @@ function createAnswerGrid(){
             );
         }
 
+
         grid.appendChild(
             columnElement
         );
     }
+
 
     return grid;
 }
@@ -1607,8 +1605,7 @@ function createStudentProblem(number,data){
         "answerArea";
 
 
-    /* 「答え」という文字は作らない */
-
+    /* 「答え」という文字は表示しない */
 
     answerArea.appendChild(
         createAnswerGrid()
@@ -1623,16 +1620,6 @@ function createStudentProblem(number,data){
     content.className =
         "problemContent";
 
-
-    /*
-       row-reverse により
-
-       右 → 左
-
-       本文 → 問い → 答え
-
-       の順番になる。
-    */
 
     content.appendChild(
         bodyArea
@@ -1848,8 +1835,6 @@ function makePrint(){
 
 
     /* ---------- 問題数 ---------- */
-
-    /* ★ 常に3問固定 */
 
     const problemCount = 3;
 
